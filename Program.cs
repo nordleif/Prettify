@@ -66,6 +66,11 @@ namespace Prettify
                 text = string.Join(" ", args);
                 useClipboard = false;
             }
+            
+            text = text.Trim();
+            text = text.TrimStart('\"');
+            text = text.TrimEnd('\"');
+            text = text.Replace("\\\"", "\"");
 
             if (string.IsNullOrWhiteSpace(text))
                 return;
@@ -77,10 +82,10 @@ namespace Prettify
                 Console.WriteLine(useClipboard ? "Clipboard JSON prettified." : text);
                 return;
             }
-            catch { }
-            
-           
-
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
         }
     }
 }
